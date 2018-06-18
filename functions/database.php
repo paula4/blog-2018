@@ -1,15 +1,11 @@
 <?php
 //aca van todas las funciones para manejar los datos de la bd
 
-/*
-Para agregar, modificar, o eliminar datos de la bd necesitamos una conexion
-esa conexion es un objeto que ya trae las funciones para hacer todo eso.
-*/
 
 //esta funcion nos devuelve el objeto de la conexion, si falla muestra un mensaje de error.
-function nuevaConexion($host,$usuario,$contraseña,$bd){
+function nuevaConexion(){
   // este es el objeto de la conexion
-  $conexion = new mysqli($host,$usuario,$contraseña,$bd);
+  $conexion = new mysqli('localhost','root','','php_blog');
 
   if($conexion->connect_errno){    //si se produce un error de conexion
     //la funcion "die" hace que no se siga cargando nada y muestra el mensaje que le pones.
@@ -30,16 +26,40 @@ function traerLenguajes($conexion){
 
   if($datos){//si hay datos que cumplan la consulta
     while($lenguaje = $datos->fetch_assoc()){//este es un ciclo que se repite para cada lenguaje en datos
-      /*
-        la funcion fetch_assoc() de los datos de la consulta sql transforma estos datos
-        en un arreglo que tiene los datos de la consulta. es raro de entender, pero la variable $datos si bien
-        tiene todos los datos de la consulta, no los tiene ordenados en un arreglo, entonces hay que hacer eso.
-      */
-      array_push($listaLenguajes,$lenguaje['name']);//se agrega cada nombre de lenguaje (que es un string) a la lista de lenguajes.
+
+      array_push($listaLenguajes,$lenguaje);
     }
   }
-  //una vez que se metieron todos los nombres de los lenguajes en el arreglo, lo devolvemos
+
   return $listaLenguajes;
 }
 
+
+//Elimina un lenguaje segun su id
+function eliminarLenguaje($conexion,$id){
+  $id = $conexion->real_escape_string( (int) $id);
+  $conexion->query("delete FROM languages where id ='$id'");
+}
+//Elimina un lenguaje por su nombre
+function agregarLenguaje($conexion,$nombre){
+  $nombre = $conexion->real_escape_string( (string) $nombre);
+  $conexion->query("insert into languages (name) values('$nombre')");
+}
+//Edita un lenguaje segun su id
+function editarLenguaje($conexion,$nombre,$id){
+  $nombre = $conexion->real_escape_string( (string) $nombre);
+  $id = $conexion->real_escape_string( (int) $id);
+  $conexion->query("update languages set name='$nombre' where id='$id'");
+}
+
+//Devuelve el nombre de un lenguaje segun su id
+function nombreLenguaje($conexion,$id){
+  $id = $conexion->real_escape_string( (int) $id);
+  $datos = $conexion->query("select name from languages where id ='$id'");
+  if($datos){ //si hay datos
+    $arregloDeDatos =  $datos->fetch_assoc();
+    return $arregloDeDatos['name'];
+  }
+  else return "Este lenguaje no existe";
+}
 ?>

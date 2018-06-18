@@ -6,7 +6,7 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">1ER PARTE<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="index.php">INICIO</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">2DA PARTE</a>
@@ -16,7 +16,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        UN LINK BONITO
+          UN LINK BONITO
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#">Action</a>
