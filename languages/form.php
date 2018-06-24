@@ -1,5 +1,5 @@
 <?php
-require_once('functions/database.php');
+require_once('../functions/database.php');
 $conexion=nuevaConexion();
 
 
@@ -24,7 +24,7 @@ if(isset($_POST['nombre'])){ //Si se envio el formulario
     //agregar
     agregarLenguaje($conexion,$name);//agrega en la db
   }
-  header("Location:index.php");
+  header("Location:lista.php");
 
 }
 ?>
@@ -32,12 +32,12 @@ if(isset($_POST['nombre'])){ //Si se envio el formulario
 <html lang="es" dir="ltr">
 <head>
   <?php
-  require('head.php');
+  require('../head.php');
   ?>
 </head>
 <body class="bg-secondary">
   <?php
-  require('navbar.php');
+  require('../navbar.php');
   ?>
   <div class="row">
     <div class="col-3 mx-auto bg-light shadow mt-4 py-4 px-2 rounded text-center">

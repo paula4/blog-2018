@@ -6,10 +6,10 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">INICIO</a>
+        <a class="nav-link" href="../languages/lista.php">INICIO</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">2DA PARTE</a>
+        <a class="nav-link" href="../post/post.php">POST</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">1ER PARTE</a>

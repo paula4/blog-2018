@@ -1,7 +1,4 @@
 <?php
-//aca van todas las funciones para manejar los datos de la bd
-
-
 //esta funcion nos devuelve el objeto de la conexion, si falla muestra un mensaje de error.
 function nuevaConexion(){
   // este es el objeto de la conexion
@@ -61,5 +58,46 @@ function nombreLenguaje($conexion,$id){
     return $arregloDeDatos['name'];
   }
   else return "Este lenguaje no existe";
+}
+
+function traerPost($conexion){
+  //los datos son el resultado de ejecutar esa consulta.
+  $datos = $conexion->query('select * FROM post');
+
+  $listaPost = array(); //es un arreglo vacio donde se van a meter todos los nombres de los lenguajes.
+
+  if($datos){//si hay datos que cumplan la consulta
+    while($post = $datos->fetch_assoc()){//este es un ciclo que se repite para cada lenguaje en datos
+
+      array_push($listaPost,$post);
+    }
+  }
+
+  return $listaPost;
+}
+
+function eliminarPost($conexion,$id){
+  $id = $conexion->real_escape_string( (int) $id);
+  $conexion->query("delete FROM post where id ='$id'");
+}
+
+function datosPost($conexion,$id){
+  $id = $conexion->real_escape_string( (int) $id);
+  $datos = $conexion->query("select * from post where id ='$id'");
+  if($datos){ //si hay datos
+    $arregloDeDatos =  $datos->fetch_assoc();
+    return $arregloDeDatos;
+  }
+  else return "Este Post no existe";
+}
+
+function editarPost($conexion,$datos,$id){
+
+  $title = $conexion->real_escape_string( $datos['title'] );
+  $brief = $conexion->real_escape_string( $datos['brief']);
+  $body = $conexion->real_escape_string( $datos['body']);
+  $id = $conexion->real_escape_string( (int) $id);
+  $conexion->query("update post set title='$title',brief='$brief',body='$body' where id='$id'");
+
 }
 ?>

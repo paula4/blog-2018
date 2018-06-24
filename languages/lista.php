@@ -2,16 +2,16 @@
 <html lang="es" dir="ltr">
 <head>
   <?php
-  require('head.php');
+  require('../head.php');
   ?>
 </head>
 <body class="bg-secondary">
   <?php
-  require('navbar.php');
+  require('../navbar.php');
   ?>
   <div class="container bg-light rounded shadow py-4 px-2 mt-4">
     <?php
-    require_once('functions/database.php');
+    require_once('../functions/database.php');
     $conexion = nuevaConexion();
     $lenguajes = traerLenguajes($conexion);
     $cantidad = count($lenguajes);
@@ -33,7 +33,7 @@
         </table>
       </div>
       <div class="col-6">
-        <a href="form.php" class="btn btn-warning btn-lg">Agregar un munito lenguaje</a>
+        <a href="form.php" class="btn btn-warning btn-lg">Agregar un bonito lenguaje</a>
       </div>
     </div>
   </div>
