@@ -1,28 +1,28 @@
 <?php
-//esta funcion nos devuelve el objeto de la conexion, si falla muestra un mensaje de error.
+//esta funcion devuelve el objeto de la conexion, si falla muestra un mensaje de error.
 function nuevaConexion(){
   // este es el objeto de la conexion
   $conexion = new mysqli('localhost','root','','php_blog');
 
   if($conexion->connect_errno){    //si se produce un error de conexion
-    //la funcion "die" hace que no se siga cargando nada y muestra el mensaje que le pones.
+    //la funcion "die" hace que no se siga cargando nada y muestra el mensaje que se pone .
     die("Error de conexion");
   }
   else{ // si no hubo errores
-    return $conexion; //devuleve la conexion.
+    return $conexion; //devuelve la conexion.
   }
 }
 
 
 
 function traerLenguajes($conexion){
-  //los datos son el resultado de ejecutar esa consulta.
+  //los datos son el resultado de ejecutar esta consulta.
   $datos = $conexion->query('select * FROM languages');
 
   $listaLenguajes = array(); //es un arreglo vacio donde se van a meter todos los nombres de los lenguajes.
 
   if($datos){//si hay datos que cumplan la consulta
-    while($lenguaje = $datos->fetch_assoc()){//este es un ciclo que se repite para cada lenguaje en datos
+    while($lenguaje = $datos->fetch_assoc()){//ciclo que se repite para cada lenguaje en datos
 
       array_push($listaLenguajes,$lenguaje);
     }
@@ -67,7 +67,7 @@ function traerPost($conexion){
   $listaPost = array(); //es un arreglo vacio donde se van a meter todos los nombres de los lenguajes.
 
   if($datos){//si hay datos que cumplan la consulta
-    while($post = $datos->fetch_assoc()){//este es un ciclo que se repite para cada lenguaje en datos
+    while($post = $datos->fetch_assoc()){//ciclo que se repite para cada lenguaje en datos
 
       array_push($listaPost,$post);
     }
@@ -95,9 +95,21 @@ function editarPost($conexion,$datos,$id){
 
   $title = $conexion->real_escape_string( $datos['title'] );
   $brief = $conexion->real_escape_string( $datos['brief']);
+  $language = $conexion->real_escape_string( $datos['language']);
   $body = $conexion->real_escape_string( $datos['body']);
   $id = $conexion->real_escape_string( (int) $id);
-  $conexion->query("update post set title='$title',brief='$brief',body='$body' where id='$id'");
+  $conexion->query("update post set title='$title',brief='$brief',language_id='$language',body='$body' where id='$id'");
 
 }
+
+function agregarPost($conexion,$datos){
+  $title = $conexion->real_escape_string( $datos['title'] );
+  $brief = $conexion->real_escape_string( $datos['brief']);
+  $language = $conexion->real_escape_string( $datos['language']);
+  $body = $conexion->real_escape_string( $datos['body']);
+  $id = $conexion->real_escape_string( (int) $id);
+  $conexion->query("insert into post (brief,title,language_id,body) value ('$brief','$title','$language','$body')");
+
+}
+
 ?>

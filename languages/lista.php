@@ -25,15 +25,15 @@
             foreach ($lenguajes as $elemento) {
               echo '<tr>
               <td><h5>' .$elemento['name'].'</h5></td>
-              <td class="text-right"><a href="eliminar.php?id='.$elemento['id'].'" class="btn btn-primary">Eliminar esta cosa</a>
-              <a href="form.php?id='.$elemento['id'].'" class="btn btn-success">Editar, me confundi</a></td>
+              <td class="text-right"><a href="eliminar.php?id='.$elemento['id'].'" class="btn btn-primary">Eliminar</a>
+              <a href="form.php?id='.$elemento['id'].'" class="btn btn-success">Editar</a></td>
               </tr>';
             }?>
           </tbody>
         </table>
       </div>
       <div class="col-6">
-        <a href="form.php" class="btn btn-warning btn-lg">Agregar un bonito lenguaje</a>
+        <a href="form.php" class="btn btn-warning btn-lg">Agregar un lenguaje</a>
       </div>
     </div>
   </div>

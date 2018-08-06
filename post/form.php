@@ -13,13 +13,13 @@ if(isset($_GET['id'])){//si existe la variable $_GET[id] o sea si se quiere edit
 }
 
 
-if(isset($_POST['enviar'])){ //Si se envio el formulario
-  //argelos comunes
+if(isset($_POST['enviar'] )){ //Si se envio el formulario
+  //arreglos comunes
   $postedit = array(
     'title' =>$_POST['title'],
     'brief'=>$_POST['brief'],
     'body'=>$_POST['body'],
-
+    'language'=> $_POST['language']
   );
 
   if($estaEditando){
@@ -28,7 +28,7 @@ if(isset($_POST['enviar'])){ //Si se envio el formulario
 
   }else{
     //agregar
-  //  agregarLenguaje($conexion,$name);//agrega en la db
+    agregarPost($conexion,$postedit);//agrega en la db
   }
   header("Location:post.php");
 
@@ -45,17 +45,34 @@ if(isset($_POST['enviar'])){ //Si se envio el formulario
   <?php
   require('../navbar.php');
   ?>
-  <div class="row">
-    <div class="col-3 mx-auto bg-light shadow mt-4 py-4 px-2 rounded text-center">
+  <div>
+    <div class="col-4 mx-auto bg-light shadow mt-4 py-4 px-2 rounded">
       <form action="form.php<?php if($estaEditando) echo '?id='.$id; ?>" method="POST">
         <div class="form-group">
-          <h6>Blog a editar</h6>
-          <label>Titulo<input type="text" name="title" class="form-control" placeholder="Título" value="<?php echo $post['title'];?>"></label>
-            <label>Resumen<input type="text" name="brief" class="form-control" placeholder="Resumen" value="<?php echo $post['brief'];?>"></label>
-            <label class="d-block">Cuerpo del Blog</label>
-            <textarea name="body" width="100%" rows="10" placeholder="Ingrese el texto"><?php echo $post['body']; ?></textarea>
+          <h6 class="text-center">Blog a editar</h6>
+          <label class="d-block">Titulo<input  required type="text" name="title" class="form-control" placeholder="Título" value="<?php echo $post['title'];?>"></label>
+            <label class="d-block">Resumen<input required  type="text" name="brief" class="form-control" placeholder="Resumen" value="<?php echo $post['brief'];?>"></label>
         </div>
-        <input name="enviar" type="submit" class="btn btn-warning" value="guardar" />
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Lenguaje</label>
+          <select required class="form-control" name="language">
+            <option>Seleccione un lenguaje</option>
+            <?php
+            require_once('../functions/database.php');
+            $conexion = nuevaConexion();
+            $lenguajes = traerLenguajes($conexion);
+            foreach ($lenguajes as $elemento) {
+              echo '<option value="'.$elemento['id'].'"'.($post['language_id'] == $elemento['id'] ? ' selected' : '').'>'.$elemento['name'].'</option>';
+            }?>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="d-block">Cuerpo del Blog</label>
+          <textarea required name="body" class="form-control" width="100%" rows="10" placeholder="Ingrese el texto"><?php echo $post['body']; ?></textarea>
+        </div>
+        <div class="form-group text-center">
+          <input name="enviar" type="submit" class="btn btn-warning" value="guardar" />
+        </div>
       </form>
     </div>
   </div>
